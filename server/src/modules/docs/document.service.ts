@@ -100,24 +100,27 @@ export class DocumentService {
     repoPath: string,
     docId: string,
   ) {
-    const meta = await this.documentRepository.loadMeta(
-      repoPath,
-      docId,
-    );
+      const meta = await this.documentRepository.loadMeta(
+        repoPath,
+        docId,
+      );
 
-    const blocks = await Promise.all(
-      Object.keys(meta.blocks).map(async (blockId) => {
-        const content = await this.blockRepository.loadBlock(
-          repoPath,
-          docId,
-          blockId,
-        );
+      const blocks = await Promise.all(
+      Object.keys(meta.blocks).map(
+        async (blockId) => {
+          const content =
+            await this.blockRepository.loadBlock(
+              repoPath,
+              docId,
+              blockId,
+            );
 
-        return {
-          id: blockId,
-          content,
-        };
-      }),
+          return {
+            id: blockId,
+            content,
+          };
+        },
+      ),
     );
 
     return {

@@ -13,5 +13,6 @@ export class GitService {
     }
 
     await git.commit(message);
+    console.log('[git commit]', message);
   }
 }
